@@ -147,20 +147,20 @@ int Tree::right(int val){
 void Tree::print(){
   std::cout<<"print"<<std::endl;
 }
-int main(){
-  Tree t;
-  std::cout<<t.size()<<std::endl;
-  t.insert(3);
-  std::cout<<t.size()<<std::endl;
-  //t.insert(2);
-  t.insert(6).insert(5).insert(9);
-  std::cout<<"size"<<t.size()<<std::endl;
-  t.insert(2);
-  std::cout<<t.root()<<std::endl;
-  std::cout<<t.right(3)<<std::endl;
-  std::cout<<t.left(6)<<std::endl;
-  std::cout<<t.left(3)<<std::endl;
-  std::cout<<t.contains(2)<<std::endl;
-  return 1;
-}
+// int main(){
+//   Tree t;
+//   std::cout<<t.size()<<std::endl;
+//   t.insert(3);
+//   std::cout<<t.size()<<std::endl;
+//   //t.insert(2);
+//   t.insert(6).insert(5).insert(9);
+//   std::cout<<"size"<<t.size()<<std::endl;
+//   t.insert(2);
+//   std::cout<<t.root()<<std::endl;
+//   std::cout<<t.right(3)<<std::endl;
+//   std::cout<<t.left(6)<<std::endl;
+//   std::cout<<t.left(3)<<std::endl;
+//   std::cout<<t.contains(2)<<std::endl;
+//   return 1;
+// }
 ;
