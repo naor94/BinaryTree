@@ -159,7 +159,6 @@ void Tree::remove(int val){
       t=t->left;
     }
     remove(t->val);
-          this->sizeNodes--;
 
     temp->val=t->val;
   }
