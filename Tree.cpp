@@ -149,7 +149,7 @@ int Tree::parent(int val){
   }
   else{
 throw "No Parent found";
-return -1; 
+ 
 
 
 
