@@ -102,7 +102,7 @@ void Tree::remove(int val){
     if(temp==Root){
       Root=nullptr;
       this->sizeNodes--;
-      delete temp;
+     // delete temp;
       return;
     }
     else{
@@ -110,7 +110,7 @@ void Tree::remove(int val){
       if(val>temp->parent->val){
         temp->parent->right=nullptr;
         temp=nullptr;
-        delete temp;
+      //  delete temp;
         this->sizeNodes--;
         return;
       }
@@ -119,7 +119,7 @@ void Tree::remove(int val){
         temp->parent->left=nullptr;
               this->sizeNodes--;
               temp=nullptr;
-              delete temp;
+              //delete temp;
               return;
       }
     }
@@ -131,7 +131,7 @@ void Tree::remove(int val){
       Root=temp->right;
             this->sizeNodes--;
             temp=nullptr;
-            delete temp;
+    //        delete temp;
             return;
     }
     else{
@@ -139,13 +139,13 @@ void Tree::remove(int val){
       if(temp->val>temp->parent->val){
         temp->parent->right=temp->right;
         temp=nullptr;
-        delete temp;
+      //  delete temp;
       }
       else{
         //if the node is left child.
         temp->parent->left=temp->right;
         temp=nullptr;
-        delete temp;
+        //delete temp;
       }
 
       temp->right->parent=temp->parent;
@@ -163,7 +163,7 @@ void Tree::remove(int val){
       Root=temp->left;
             this->sizeNodes--;
             temp=nullptr;
-            delete temp;
+          //  delete temp;
 
       return;
     }
@@ -177,7 +177,7 @@ void Tree::remove(int val){
     temp->left->parent=temp->parent;
           this->sizeNodes--;
           temp=nullptr;
-          delete temp;
+          //delete temp;
 
     return;
 
