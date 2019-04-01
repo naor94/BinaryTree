@@ -100,7 +100,7 @@ void Tree::remove(int val){
   if(temp->left==nullptr&&temp->right==nullptr){
     //case 1.1: root
     if(temp==Root){
-      Root=nullptr;
+     // Root=nullptr;
       this->sizeNodes--;
      // delete temp;
       return;
@@ -109,7 +109,7 @@ void Tree::remove(int val){
       //case 1.2: the node is right child
       if(val>temp->parent->val){
         temp->parent->right=nullptr;
-        temp=nullptr;
+     //   temp=nullptr;
       //  delete temp;
         this->sizeNodes--;
         return;
@@ -118,7 +118,7 @@ void Tree::remove(int val){
         //case 1.3: the node is left child.
         temp->parent->left=nullptr;
               this->sizeNodes--;
-              temp=nullptr;
+             // temp=nullptr;
               //delete temp;
               return;
       }
@@ -130,7 +130,7 @@ void Tree::remove(int val){
     if(temp==Root){
       Root=temp->right;
             this->sizeNodes--;
-            temp=nullptr;
+           // temp=nullptr;
     //        delete temp;
             return;
     }
@@ -138,13 +138,13 @@ void Tree::remove(int val){
       // if the node is a right chuld
       if(temp->val>temp->parent->val){
         temp->parent->right=temp->right;
-        temp=nullptr;
+      //  temp=nullptr;
       //  delete temp;
       }
       else{
         //if the node is left child.
         temp->parent->left=temp->right;
-        temp=nullptr;
+       // temp=nullptr;
         //delete temp;
       }
 
@@ -162,7 +162,7 @@ void Tree::remove(int val){
     if(temp==Root){
       Root=temp->left;
             this->sizeNodes--;
-            temp=nullptr;
+          //  temp=nullptr;
           //  delete temp;
 
       return;
@@ -176,7 +176,7 @@ void Tree::remove(int val){
     }
     temp->left->parent=temp->parent;
           this->sizeNodes--;
-          temp=nullptr;
+        //  temp=nullptr;
           //delete temp;
 
     return;
