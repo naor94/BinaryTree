@@ -90,113 +90,230 @@ return *this;
 }
 
 
-void Tree::remove(int val){
-  Node* temp=findNode(val);
-  if(temp==nullptr){
-    throw "no val";
-    return;
-  }
-  //case 1: no children
-  if(temp->left==nullptr&&temp->right==nullptr){
-    //case 1.1: root
-    if(temp==Root){
-      this->sizeNodes--;
-       Root=nullptr;
-       //delete temp;
-      return;
-    }
-    else{
-      //case 1.2: the node is right child
-      if(val>temp->parent->val){
-        temp->parent->right=nullptr;
-        // temp=nullptr;
-        // delete temp;
-        this->sizeNodes--;
-        return;
-      }
-      else{
-        //case 1.3: the node is left child.
-        temp->parent->left=nullptr;
-              this->sizeNodes--;
-              // temp=nullptr;
-              // delete temp;
-              return;
-      }
-    }
-  }
-  //case 2: the node has only right child
-  if(temp->left==nullptr&&temp->right!=nullptr){
-    // case 2.1 the node is the root
-    if(temp==Root){
-      Root=temp->right;
-            this->sizeNodes--;
-            //temp=nullptr;
-            // delete temp;
-            return;
-    }
-    else{
-      // if the node is a right chuld
-      if(temp->val>temp->parent->val){
-        temp->parent->right=temp->right;
-        //temp=nullptr;
-       // delete temp;
-      }
-      else{
-        //if the node is left child.
-        temp->parent->left=temp->right;
-       // temp=nullptr;
-       // delete temp;
-      }
+// void Tree::remove(int val){
+//   Node* temp=findNode(val);
+//   if(temp==nullptr){
+//     throw "no val";
+//     return;
+//   }
+//   //case 1: no children
+//   if(temp->left==nullptr&&temp->right==nullptr){
+//     //case 1.1: root
+//     if(temp==Root){
+//       this->sizeNodes--;
+//        Root=nullptr;
+//        //delete temp;
+//       return;
+//     }
+//     else{
+//       //case 1.2: the node is right child
+//       if(val>temp->parent->val){
+//         temp->parent->right=nullptr;
+//         // temp=nullptr;
+//         // delete temp;
+//         this->sizeNodes--;
+//         return;
+//       }
+//       else{
+//         //case 1.3: the node is left child.
+//         temp->parent->left=nullptr;
+//               this->sizeNodes--;
+//               // temp=nullptr;
+//               // delete temp;
+//               return;
+//       }
+//     }
+//   }
+//   //case 2: the node has only right child
+//   if(temp->left==nullptr&&temp->right!=nullptr){
+//     // case 2.1 the node is the root
+//     if(temp==Root){
+//       Root=temp->right;
+//             this->sizeNodes--;
+//             //temp=nullptr;
+//             // delete temp;
+//             return;
+//     }
+//     else{
+//       // if the node is a right chuld
+//       if(temp->val>temp->parent->val){
+//         temp->parent->right=temp->right;
+//         //temp=nullptr;
+//        // delete temp;
+//       }
+//       else{
+//         //if the node is left child.
+//         temp->parent->left=temp->right;
+//        // temp=nullptr;
+//        // delete temp;
+//       }
 
-      temp->right->parent=temp->parent;
-            this->sizeNodes--;
+//       temp->right->parent=temp->parent;
+//             this->sizeNodes--;
 
-      return;
+//       return;
 
-    }
+//     }
 
-  }
-  //if the node has left child
-  if(temp->left!=nullptr&&temp->right==nullptr){
-   // if the nide is root
-    if(temp==Root){
-      Root=temp->left;
-            this->sizeNodes--;
-           // temp=nullptr;
-          //  delete temp;
+//   }
+//   //if the node has left child
+//   if(temp->left!=nullptr&&temp->right==nullptr){
+//    // if the nide is root
+//     if(temp==Root){
+//       Root=temp->left;
+//             this->sizeNodes--;
+//            // temp=nullptr;
+//           //  delete temp;
 
-      return;
-    }
-    if(temp->val>temp->parent->val){
-      temp->parent->right=temp->left;
+//       return;
+//     }
+//     if(temp->val>temp->parent->val){
+//       temp->parent->right=temp->left;
       
-    }
-    else{
-      temp->parent->left=temp->left;
-    }
-    temp->left->parent=temp->parent;
-          this->sizeNodes--;
-         // temp=nullptr;
-        // delete temp;
+//     }
+//     else{
+//       temp->parent->left=temp->left;
+//     }
+//     temp->left->parent=temp->parent;
+//           this->sizeNodes--;
+//          // temp=nullptr;
+//         // delete temp;
 
-    return;
+//     return;
 
-  }
-  //case 3: if the node has two children
-  if(temp->left!=nullptr&&temp->right!=nullptr){
-    Node* t=temp->right;
-    while(t->left){
-      t=t->left;
-    }
-    remove(t->val);
+//   }
+//   //case 3: if the node has two children
+//   if(temp->left!=nullptr&&temp->right!=nullptr){
+//     Node* t=temp->right;
+//     while(t->left){
+//       t=t->left;
+//     }
+//     remove(t->val);
     
-    temp->val=t->val;
-  }
+//     temp->val=t->val;
+//   }
 
 
 
 
+// }
+
+void Tree::remove(int val)
+{
+
+    if (!contains(val))
+       throw "The value isnt member in the tree";
+    else
+    {
+        Node *runner = Root;
+        Node *before = Root;
+        while (runner->val != val)
+        {
+            before = runner;
+            if (runner->val < val)
+                runner = runner->right;
+            else
+                runner = runner->left;
+        }
+        if(size() == 1) {
+            delete Root; 
+            Root = nullptr ; 
+                    this->sizeNodes--;
+            return ;
+        }
+        /*delete leaf with no right or left node's*/
+        if (runner->right == nullptr && runner->left == nullptr)
+        {
+            if (before->val > runner->val)
+            {
+                before->left = nullptr;
+            }
+            else
+            {
+                before->right = nullptr;
+            }
+
+                    this->sizeNodes--;
+            delete runner;
+            return;
+        }
+        /*delete leaf with  right or left node's (no both)*/
+        else if ((runner->right == nullptr && runner->left != nullptr) || (runner->right != nullptr && runner->left == nullptr))
+        {
+            if (before->val > val)
+            {
+                if (runner->left != nullptr)
+                {
+                    before->left = runner->left;
+                    delete runner;
+                    this->sizeNodes--;
+                    return;
+                }
+                else
+                {
+                    before->left = runner->right;
+                    delete runner;
+                    this->sizeNodes--;
+                    return;
+                }
+            }
+            else
+            {
+                if (runner->left != nullptr)
+                {
+                    before->right = runner->left;
+                    delete runner;
+                    this->sizeNodes--;
+                    return;
+                }
+                else
+                {
+                    before->right = runner->right;
+                    delete runner;
+                    this->sizeNodes--;
+                    return;
+                }
+            }
+        }
+         /*delete leaf with  right and left node's (no both)*/
+        else if(runner -> right !=nullptr && runner->left != nullptr)
+        {
+            Node *theSwapRunner = runner ;
+            Node *backSwap = runner ;  
+            theSwapRunner = runner->left ; 
+            while(theSwapRunner->right != nullptr)
+            {
+                backSwap = theSwapRunner ; 
+                theSwapRunner = theSwapRunner->right ;
+            }
+            if(theSwapRunner->left != nullptr)
+            {
+                backSwap->right = theSwapRunner->left ; 
+            }
+            else
+            {
+                backSwap->right = nullptr ; 
+            }
+            
+            if(before->val> val)
+            {
+                before->left = theSwapRunner ;
+            }
+            else
+            {
+                before->right = theSwapRunner;
+            }
+          
+            theSwapRunner->right = runner->right ; 
+            theSwapRunner->left = runner->left ; 
+            delete runner ;
+            runner = nullptr ;  
+                    this->sizeNodes--;
+            return ;
+        }
+    }
 }
+
 int Tree::size(){
   return this->sizeNodes;;
 }
